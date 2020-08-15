@@ -28,77 +28,72 @@ defmodule Backend.Vacation do
 
   ## Examples
 
-      iex> get_place!(123)
+      iex> get_place_by_slug!('slug')
       %Place{}
 
-      iex> get_place!(456)
+      iex> get_place_by_slug!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_place!(id), do: Repo.get!(Place, id)
+  def get_place_by_slug!(slug), do: Repo.get_by!(Place, slug: slug)
 
-  @doc """
-  Creates a place.
+  def list_places(criteria) do
+    query = from(p in Place)
 
-  ## Examples
+    Enum.reduce(criteria, query, fn
+      {:limit, limit}, query ->
+        from p in query, limit: ^limit
 
-      iex> create_place(%{field: value})
-      {:ok, %Place{}}
+      {:filter, filters}, query ->
+        filter_with(filters, query)
 
-      iex> create_place(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_place(attrs \\ %{}) do
-    %Place{}
-    |> Place.changeset(attrs)
-    |> Repo.insert()
+      {:order, order}, query ->
+        from p in query, order_by: [{^order, :id}]
+    end)
+    |> Repo.all()
   end
 
-  @doc """
-  Updates a place.
+  defp filter_with(filters, query) do
+    Enum.reduce(filters, query, fn
+      {:matching, term}, query ->
+        pattern = "%#{term}%"
 
-  ## Examples
+        from q in query,
+          where:
+            ilike(q.name, ^pattern) or
+              ilike(q.description, ^pattern) or
+              ilike(q.location, ^pattern)
 
-      iex> update_place(place, %{field: new_value})
-      {:ok, %Place{}}
+      {:pet_friendly, value}, query ->
+        from q in query, where: q.pet_friendly
 
-      iex> update_place(place, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:pool, value}, query ->
+        from q in query, where: q.pet_friendly == ^value
 
-  """
-  def update_place(%Place{} = place, attrs) do
-    place
-    |> Place.changeset(attrs)
-    |> Repo.update()
+      {:wifi, value}, query ->
+        from q in query, where: q.wifi == ^value
+
+      {:guest_count, count}, query ->
+        from q in query, where: q.max_guests >= ^count
+
+      {:available_between, %{start_date: start_date, end_date: end_date}}, query ->
+        available_between(query, start_date, end_date)
+    end)
   end
 
-  @doc """
-  Deletes a place.
-
-  ## Examples
-
-      iex> delete_place(place)
-      {:ok, %Place{}}
-
-      iex> delete_place(place)
-      {:error, %Ecto.Changeset{}}
-
   """
-  def delete_place(%Place{} = place) do
-    Repo.delete(place)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking place changes.
-
-  ## Examples
-
-      iex> change_place(place)
-      %Ecto.Changeset{data: %Place{}}
-
+  TODO:
+  clarify the query below. Why is doing it?
   """
-  def change_place(%Place{} = place, attrs \\ %{}) do
-    Place.changeset(place, attrs)
+  defp available_between(query, start_date, end_date) do
+    from place in query
+      left_join: booking in Booking,
+      on: booking.place_id == place.id and fragment(
+        "(?,?) OVERLAPS (?, ? + INTERVAL '1' DAY)",
+        booking.start_date, booking.end_date,
+        type(^start_date, :date),
+        type(^end_date, :date)
+      )
+      where: is_nil(booking.place_id)
   end
 end
