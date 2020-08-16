@@ -31,6 +31,12 @@ defmodule Backend.Vacation.Booking do
     |> calculate_total_price()
   end
 
+  def cancel_changeset(booking, attrs) do
+    booking
+    |> cast(attrs, [:state])
+    |> validate_required([:state])
+  end
+
   defp validate_dates_available(changeset) do
     case changeset.valid? do
       true ->

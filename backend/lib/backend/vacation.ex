@@ -6,7 +6,7 @@ defmodule Backend.Vacation do
   import Ecto.Query, warn: false
   alias Backend.Repo
 
-  alias Backend.Vacation.{Place, Booking}
+  alias Backend.Vacation.{Place, Booking, Review}
   alias Backend.Accounts.User
 
   @doc """
@@ -103,5 +103,40 @@ defmodule Backend.Vacation do
             type(^end_date, :date)
           ),
       where: is_nil(booking.place_id)
+  end
+
+  @doc """
+  Returns the booking with the given `id`.
+
+  Raises `Ecto.NoRsultsError` if no booking was found.
+  """
+  def get_booking!(id) do
+    Repo.get!(Booking, id)
+  end
+
+  @doc """
+  Creates a booking for the given user
+  """
+  def create_booking(%User{} = user, attrs) do
+    %Booking{}
+    |> Booking.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Cancels the given booking
+  """
+  def cacel_booking(%Booking{} = booking) do
+    booking
+    |> Booking.cancel_changeset(%{state: "canceled"})
+    |> Repo.update()
+  end
+
+  def create_review(%User{} = user, attrs) do
+    %Review{}
+    |> Review.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Repo.insert()
   end
 end
