@@ -6,7 +6,8 @@ defmodule Backend.Vacation do
   import Ecto.Query, warn: false
   alias Backend.Repo
 
-  alias Backend.Vacation.Place
+  alias Backend.Vacation.{Place, Booking}
+  alias Backend.Accounts.User
 
   @doc """
   Returns the list of places.
@@ -85,15 +86,22 @@ defmodule Backend.Vacation do
   TODO:
   clarify the query below. Why is doing it?
   """
+
+  # This method return places between
+  # start_date and end_date.
+  # It uses the PostgreSQL OVERLAPS to calculate it.
   defp available_between(query, start_date, end_date) do
-    from place in query
+    from place in query,
       left_join: booking in Booking,
-      on: booking.place_id == place.id and fragment(
-        "(?,?) OVERLAPS (?, ? + INTERVAL '1' DAY)",
-        booking.start_date, booking.end_date,
-        type(^start_date, :date),
-        type(^end_date, :date)
-      )
+      on:
+        booking.place_id == place.id and
+          fragment(
+            "(?, ?) OVERLAPS (?, ? + INTERVAL '1' DAY)",
+            booking.start_date,
+            booking.end_date,
+            type(^start_date, :date),
+            type(^end_date, :date)
+          ),
       where: is_nil(booking.place_id)
   end
 end

@@ -16,7 +16,8 @@ defmodule Backend.Repo.Migrations.CreatePlaces do
       add :wifi, :boolean, default: false, null: false, null: false
 
       timestamps()
-      create unique_index(:places, [:name, :slug])
     end
+
+    create unique_index(:places, [:name, :slug])
   end
 end
