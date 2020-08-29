@@ -8,6 +8,9 @@ defmodule Backend.Accounts.User do
     field(:password_hash, :string)
     field(:username, :string)
 
+    has_many(:bookings, Backend.Vacation.Booking)
+    has_many(:reviews, Backend.Vacation.Review)
+
     timestamps()
   end
 
