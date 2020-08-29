@@ -15,6 +15,9 @@ defmodule Backend.Vacation.Place do
     field :slug, :string
     field :wifi, :boolean, default: false
 
+    has_many(:bookings, Backend.Vacation.Booking)
+    has_many(:reviews, Backend.Vacation.Review)
+
     timestamps()
   end
 
