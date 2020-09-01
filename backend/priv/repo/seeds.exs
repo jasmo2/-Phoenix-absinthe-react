@@ -70,8 +70,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   pool: false,
   wifi: false,
   price_per_night: Decimal.from_float(100.00),
-  image: "#{image_url}/blue-igloo.jpg",
-  image_thumbnail:"#{image_url}/blue-igloo-thumb.jpg",
+  image: "#{images_url}/blue-igloo.jpg",
+  image_thumbnail: "#{images_url}/blue-igloo-thumb.jpg",
   bookings: [
     %Booking{
       start_date: ~D[2019-07-21],
@@ -100,8 +100,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   pool: false,
   wifi: false,
   price_per_night: Decimal.from_float(100.00),
-  image: "#{image_url}/dock-house.jpg",
-  image_thumbnail: "#{image_url}/dock-house-thumb.jpg",
+  image: "#{images_url}/dock-house.jpg",
+  image_thumbnail: "#{images_url}/dock-house-thumb.jpg",
   bookings: [
     %Booking{
       start_date: ~D[2019-06-10],
@@ -113,7 +113,7 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
       start_date: ~D[2019-08-07],
       end_date: ~D[2019-08-12],
       total_price: Decimal.from_float(3500.00),
-      user: mike,
+      user: mike
     }
   ],
   reviews: [
@@ -127,15 +127,16 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
       comment: "Enjoyed some absinthe on the dock, {COCTAIL}",
       rating: 4,
       user: beachbum,
-      inserted_at: DateTime.from_naive!(~N[2019-03-21 09:00:00], "Etc/UTC"),
+      inserted_at: DateTime.from_naive!(~N[2019-03-21 09:00:00], "Etc/UTC")
     },
     %Review{
       comment: "Greate fishing!, [FISH]",
       rating: 5,
-      user: nicole,
+      user: nicole
     }
   ]
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Ski Cabin",
@@ -149,7 +150,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(225.00),
   image: "#{images_url}/ski-cabin.jpg",
   image_thumbnail: "#{images_url}/ski-cabin-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Hobbit House",
@@ -163,7 +165,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(150.00),
   image: "#{images_url}/hobbit-house.jpg",
   image_thumbnail: "#{images_url}/hobbit-house-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Greek Villa",
@@ -177,7 +180,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(225.00),
   image: "#{images_url}/greek-villa.jpg",
   image_thumbnail: "#{images_url}/greek-villa-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Captain's Quarters",
@@ -191,7 +195,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(150.00),
   image: "#{images_url}/captains-quarters.jpg",
   image_thumbnail: "#{images_url}/captains-quarters-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Tranquil Tower",
@@ -205,7 +210,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(125.00),
   image: "#{images_url}/tranquil-tower.jpg",
   image_thumbnail: "#{images_url}/tranquil-tower-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Courtyard Oasis",
@@ -219,7 +225,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(200.00),
   image: "#{images_url}/courtyard-oasis.jpg",
   image_thumbnail: "#{images_url}/courtyard-oasis-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Beachfront Hut",
@@ -233,7 +240,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(145.00),
   image: "#{images_url}/beachfront-hut.jpg",
   image_thumbnail: "#{images_url}/beachfront-hut-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Mountain Lake Cabin",
@@ -255,7 +263,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
       user: mike
     }
   ]
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Lighthouse Retreat",
@@ -277,7 +286,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
       user: mike
     }
   ]
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Medieval Treehouse",
@@ -291,7 +301,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(175.00),
   image: "#{images_url}/medieval-treehouse.jpg",
   image_thumbnail: "#{images_url}/medieval-treehouse-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Infinity Pool",
@@ -305,7 +316,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(275.00),
   image: "#{images_url}/infinity-pool.jpg",
   image_thumbnail: "#{images_url}/infinity-pool-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Mountain Chalet",
@@ -319,7 +331,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(195.00),
   image: "#{images_url}/mountain-chalet.jpg",
   image_thumbnail: "#{images_url}/mountain-chalet-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Oceanside",
@@ -333,7 +346,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(175.00),
   image: "#{images_url}/oceanside.jpg",
   image_thumbnail: "#{images_url}/oceanside-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Spanish Villa",
@@ -347,7 +361,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(225.00),
   image: "#{images_url}/spanish-villa.jpg",
   image_thumbnail: "#{images_url}/spanish-villa-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Hammock House",
@@ -361,7 +376,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(110.00),
   image: "#{images_url}/hammock-house.jpg",
   image_thumbnail: "#{images_url}/hammock-house-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Starry Yurt",
@@ -416,9 +432,10 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
       total_price: Decimal.from_float(1100.00),
       user: nicole,
       state: "reserved"
-    },
+    }
   ]
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Waterfront Study",
@@ -432,7 +449,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(150.00),
   image: "#{images_url}/waterfront-study.jpg",
   image_thumbnail: "#{images_url}/waterfront-study-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Lakeside Retreat",
@@ -446,7 +464,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(210.00),
   image: "#{images_url}/lakeside-retreat.jpg",
   image_thumbnail: "#{images_url}/lakeside-retreat-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Fairytale Castle",
@@ -460,7 +479,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(295.00),
   image: "#{images_url}/fairytale-castle.jpg",
   image_thumbnail: "#{images_url}/fairytale-castle-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Italian Chalet",
@@ -474,7 +494,8 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(285.00),
   image: "#{images_url}/italian-chalet.jpg",
   image_thumbnail: "#{images_url}/italian-chalet-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
 
 %Place{
   name: "Seaside Lodge",
@@ -488,4 +509,5 @@ images_url = "#{BackendWeb.Endpoint.url()}/images"
   price_per_night: Decimal.from_float(165.00),
   image: "#{images_url}/seaside-lodge.jpg",
   image_thumbnail: "#{images_url}/seaside-lodge-thumb.jpg"
-} |> Repo.insert!
+}
+|> Repo.insert!()
