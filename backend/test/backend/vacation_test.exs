@@ -6,9 +6,45 @@ defmodule Backend.VacationTest do
   describe "places" do
     alias Backend.Vacation.Place
 
-    @valid_attrs %{description: "some description", image: "some image", image_thumbnail: "some image_thumbnail", location: "some location", max_guest: 42, name: "some name", pet_friendly: true, pool: true, price_per_night: "120.5", slug: "some slug", wifi: true}
-    @update_attrs %{description: "some updated description", image: "some updated image", image_thumbnail: "some updated image_thumbnail", location: "some updated location", max_guest: 43, name: "some updated name", pet_friendly: false, pool: false, price_per_night: "456.7", slug: "some updated slug", wifi: false}
-    @invalid_attrs %{description: nil, image: nil, image_thumbnail: nil, location: nil, max_guest: nil, name: nil, pet_friendly: nil, pool: nil, price_per_night: nil, slug: nil, wifi: nil}
+    @valid_attrs %{
+      description: "some description",
+      image: "some image",
+      image_thumbnail: "some image_thumbnail",
+      location: "some location",
+      max_guests: 42,
+      name: "some name",
+      pet_friendly: true,
+      pool: true,
+      price_per_night: "120.5",
+      slug: "some slug",
+      wifi: true
+    }
+    @update_attrs %{
+      description: "some updated description",
+      image: "some updated image",
+      image_thumbnail: "some updated image_thumbnail",
+      location: "some updated location",
+      max_guests: 43,
+      name: "some updated name",
+      pet_friendly: false,
+      pool: false,
+      price_per_night: "456.7",
+      slug: "some updated slug",
+      wifi: false
+    }
+    @invalid_attrs %{
+      description: nil,
+      image: nil,
+      image_thumbnail: nil,
+      location: nil,
+      max_guests: nil,
+      name: nil,
+      pet_friendly: nil,
+      pool: nil,
+      price_per_night: nil,
+      slug: nil,
+      wifi: nil
+    }
 
     def place_fixture(attrs \\ %{}) do
       {:ok, place} =
@@ -35,7 +71,7 @@ defmodule Backend.VacationTest do
       assert place.image == "some image"
       assert place.image_thumbnail == "some image_thumbnail"
       assert place.location == "some location"
-      assert place.max_guest == 42
+      assert place.max_guests == 42
       assert place.name == "some name"
       assert place.pet_friendly == true
       assert place.pool == true
@@ -55,7 +91,7 @@ defmodule Backend.VacationTest do
       assert place.image == "some updated image"
       assert place.image_thumbnail == "some updated image_thumbnail"
       assert place.location == "some updated location"
-      assert place.max_guest == 43
+      assert place.max_guests == 43
       assert place.name == "some updated name"
       assert place.pet_friendly == false
       assert place.pool == false
@@ -85,8 +121,18 @@ defmodule Backend.VacationTest do
   describe "bookings" do
     alias Backend.Vacation.Booking
 
-    @valid_attrs %{end_date: ~D[2010-04-17], start_date: ~D[2010-04-17], state: "some state", total_price: "120.5"}
-    @update_attrs %{end_date: ~D[2011-05-18], start_date: ~D[2011-05-18], state: "some updated state", total_price: "456.7"}
+    @valid_attrs %{
+      end_date: ~D[2010-04-17],
+      start_date: ~D[2010-04-17],
+      state: "some state",
+      total_price: "120.5"
+    }
+    @update_attrs %{
+      end_date: ~D[2011-05-18],
+      start_date: ~D[2011-05-18],
+      state: "some updated state",
+      total_price: "456.7"
+    }
     @invalid_attrs %{end_date: nil, start_date: nil, state: nil, total_price: nil}
 
     def booking_fixture(attrs \\ %{}) do

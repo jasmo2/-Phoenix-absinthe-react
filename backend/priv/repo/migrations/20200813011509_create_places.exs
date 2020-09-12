@@ -10,7 +10,7 @@ defmodule Backend.Repo.Migrations.CreatePlaces do
       add :price_per_night, :decimal, null: false
       add :image, :string, null: false
       add :image_thumbnail, :string, null: false
-      add :max_guest, :integer, null: false
+      add :max_guests, :integer, null: false
       add :pet_friendly, :boolean, default: false, null: false, null: false
       add :pool, :boolean, default: false, null: false, null: false
       add :wifi, :boolean, default: false, null: false, null: false
