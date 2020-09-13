@@ -24,4 +24,56 @@ defmodule Backend.TestHelpers do
 
     place
   end
+
+  def places_fixtures() do
+    place1 =
+      %Place{
+        name: "Place 1",
+        slug: "place-1",
+        location: "location-1",
+        description: "description-1",
+        pet_friendly: false,
+        pool: false,
+        wifi: true,
+        max_guests: 1,
+        price_per_night: Decimal.from_float(100.00),
+        image: "https://i.imgur.com/LZnJJ9s.jpg",
+        image_thumbnail: "https://i.imgur.com/LZnJJ9s.jpg"
+      }
+      |> Repo.insert!()
+
+    place2 =
+      %Place{
+        name: "Place 2",
+        slug: "place-2",
+        location: "location-2",
+        description: "description-2",
+        pet_friendly: true,
+        pool: true,
+        wifi: false,
+        max_guests: 2,
+        price_per_night: Decimal.from_float(200.00),
+        image: "https://i.imgur.com/LZnJJ9s.jpg",
+        image_thumbnail: "https://i.imgur.com/LZnJJ9s.jpg"
+      }
+      |> Repo.insert!()
+
+    place3 =
+      %Place{
+        name: "Place 3",
+        slug: "place-3",
+        location: "location-3",
+        description: "description-3",
+        pet_friendly: true,
+        pool: false,
+        wifi: true,
+        max_guests: 3,
+        price_per_night: Decimal.from_float(300.00),
+        image: "https://i.imgur.com/LZnJJ9s.jpg",
+        image_thumbnail: "https://i.imgur.com/LZnJJ9s.jpg"
+      }
+      |> Repo.insert!()
+
+    [place1, place2, place3]
+  end
 end
