@@ -7,7 +7,7 @@ defmodule Backend.Vacation.Place do
     field :image, :string
     field :image_thumbnail, :string
     field :location, :string
-    field :max_guests, :integer
+    field :max_guests, :integer, default: 2
     field :name, :string
     field :pet_friendly, :boolean, default: false
     field :pool, :boolean, default: false

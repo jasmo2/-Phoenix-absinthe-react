@@ -59,7 +59,7 @@ defmodule Backend.Vacation.Booking do
 
   defp dates_available?(start_date, end_date, place_id) do
     query =
-      from booking in Booking,
+      from booking in Vacation.Booking,
         where:
           ^place_id == booking.place_id and
             fragment(
