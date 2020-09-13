@@ -20,7 +20,7 @@ defmodule Backend.TestHelpers do
     {:ok, place} =
       %Place{}
       |> Place.changeset(attrs)
-      |> Repo.insert!()
+      |> Repo.insert()
 
     place
   end
