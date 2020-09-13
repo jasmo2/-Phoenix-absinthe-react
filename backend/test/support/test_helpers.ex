@@ -25,7 +25,7 @@ defmodule Backend.TestHelpers do
     place
   end
 
-  def places_fixtures() do
+  def places_fixture() do
     place1 =
       %Place{
         name: "Place 1",

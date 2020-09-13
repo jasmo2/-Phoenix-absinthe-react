@@ -23,6 +23,26 @@ defmodule Backend.Vacation do
   end
 
   @doc """
+  Resturns list of places marching the criteria
+  """
+  def list_places(criteria) do
+    query = from(p in Place)
+
+    criteria
+    |> Enum.reduce(query, fn
+      {:limit, limit}, query ->
+        from q in query, limit: ^limit
+
+      {:filter, filters}, query ->
+        filter_with(filters, query)
+
+      {:order, order}, query ->
+        from q in query, order_by: [{^order, :id}]
+    end)
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single place.
 
   Raises `Ecto.NoResultsError` if the Place does not exist.
@@ -37,22 +57,6 @@ defmodule Backend.Vacation do
 
   """
   def get_place_by_slug!(slug), do: Repo.get_by!(Place, slug: slug)
-
-  def list_places(criteria) do
-    query = from(p in Place)
-
-    Enum.reduce(criteria, query, fn
-      {:limit, limit}, query ->
-        from p in query, limit: ^limit
-
-      {:filter, filters}, query ->
-        filter_with(filters, query)
-
-      {:order, order}, query ->
-        from p in query, order_by: [{^order, :id}]
-    end)
-    |> Repo.all()
-  end
 
   defp filter_with(filters, query) do
     Enum.reduce(filters, query, fn
