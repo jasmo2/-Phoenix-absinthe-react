@@ -73,7 +73,7 @@ defmodule Backend.Vacation do
         from q in query, where: q.pet_friendly
 
       {:pool, value}, query ->
-        from q in query, where: q.pet_friendly == ^value
+        from q in query, where: q.pool == ^value
 
       {:wifi, value}, query ->
         from q in query, where: q.wifi == ^value

@@ -6,7 +6,7 @@ defmodule Backend.VacationTest do
 
   describe "get place by slug" do
     test "returns the place with the given slug" do
-      place = place_fixture()
+      place = place_fixture
       vacation_place = Vacation.get_place_by_slug!(place.slug)
       assert vacation_place == place
     end
@@ -65,11 +65,100 @@ defmodule Backend.VacationTest do
     test "returns places filtered by pool" do
       places_fixture
 
-      criteria = %{filter: %{pool: true}, order: :desc}
+      criteria = %{filter: %{pool: true}}
 
       vacation_places = Vacation.list_places(criteria)
+      vacation_places |> Enum.map(&"#{&1.pool} #{&1.name}") |> IO.inspect()
 
       assert vacation_places |> Enum.map(& &1.name) == ["Place 2"]
     end
+
+    test "returns places filtered by wifi" do
+      places_fixture
+
+      criteria = %{filter: %{wifi: true}}
+
+      results = Vacation.list_places(criteria)
+
+      assert Enum.map(results, & &1.name) == ["Place 1", "Place 3"]
+    end
+
+    test "returns places filtered by guest count" do
+      places_fixture()
+
+      criteria = %{filter: %{guest_count: 3}}
+
+      results = Vacation.list_places(criteria)
+
+      assert Enum.map(results, & &1.name) == ["Place 3"]
+    end
+
+    # test "returns places available between dates" do
+    #   user = user_fixture()
+    #   place = place_fixture()
+
+    #   booking_fixture(user, %{
+    #     place_id: place.id,
+    #     start_date: ~D[2019-01-05],
+    #     end_date: ~D[2019-01-10]
+    #   })
+
+    #   # Existing booking period:
+    #   #        01-05    01-10
+    #   # --------[---------]-------
+    #   # Case 1
+    #   # --------[---------]-------
+    #   assert places_available_between(~D[2019-01-05], ~D[2019-01-10]) == []
+
+    #   # Case 2
+    #   # --------[----]------------
+    #   assert places_available_between(~D[2019-01-05], ~D[2019-01-08]) == []
+
+    #   # Case 3
+    #   # -------------[----]-------
+    #   assert places_available_between(~D[2019-01-08], ~D[2019-01-10]) == []
+
+    #   # Case 4
+    #   # [-----]-------------------
+    #   assert places_available_between(~D[2019-01-01], ~D[2019-01-04]) == [place]
+
+    #   # Case 5
+    #   # --------------------[----]
+    #   assert places_available_between(~D[2019-01-11], ~D[2019-01-12]) == [place]
+
+    #   # Case 6
+    #   # -----[----]---------------
+    #   assert places_available_between(~D[2019-01-04], ~D[2019-01-05]) == []
+
+    #   # Case 7
+    #   # -----------[---]----------
+    #   assert places_available_between(~D[2019-01-07], ~D[2019-01-08]) == []
+
+    #   # Case 8
+    #   # ------[-------]-----------
+    #   assert places_available_between(~D[2019-01-04], ~D[2019-01-08]) == []
+
+    #   # Case 9
+    #   # --------------[--------]--
+    #   assert places_available_between(~D[2019-01-08], ~D[2019-01-12]) == []
+
+    #   # Case 10
+    #   # -----[----------------]---
+    #   assert places_available_between(~D[2019-01-03], ~D[2019-01-12]) == []
+    # end
+  end
+
+  defp places_available_between(start_date, end_date) do
+    args = [
+      {:filter,
+       [
+         {
+           :available_between,
+           %{start_date: start_date, end_date: end_date}
+         }
+       ]}
+    ]
+
+    Vacation.list_places(args)
   end
 end

@@ -1,7 +1,42 @@
 defmodule Backend.TestHelpers do
   alias Backend.Repo
 
-  alias Backend.Vacation.{Place}
+  alias Backend.Vacation.{Place, Booking}
+  alias Backend.Accounts.User
+
+  def booking_fixture(%User{} = user, attrs \\ %{}) do
+    attrs =
+      Enum.into(attrs, %{
+        start_date: ~D[2019-04-01],
+        end_date: ~D[2019-04-05]
+      })
+
+    {:ok, booking} =
+      %Booking{}
+      |> Booking.changeset(attrs)
+      |> Ecto.Changeset.put_assoc(:user, user)
+      |> Repo.insert()
+
+    booking
+  end
+
+  # def user_fixture(attrs \\ %{}) do
+  #   username = "user-#{System.unique_integer([:positive])}"
+
+  #   attrs =
+  #     Enum.into(attrs, %{
+  #       username: "test-user",
+  #       email: attrs[:email] || "#{username}@example.com",
+  #       password: attrs[:password] || "supersecret"
+  #     })
+
+  #   {:ok, user} =
+  #     %User{}
+  #     |> User.changeset(attrs)
+  #     |> Repo.insert()
+
+  #   user
+  # end
 
   def place_fixture(attrs \\ %{}) do
     name = "place-#{System.unique_integer([:positive])}"
