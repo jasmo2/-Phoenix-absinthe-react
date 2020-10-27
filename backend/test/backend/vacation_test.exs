@@ -12,6 +12,7 @@ defmodule Backend.VacationTest do
     end
   end
 
+  @tag :skip
   describe "list_places/1" do
     test "return all places by default" do
       places = places_fixture
@@ -68,7 +69,6 @@ defmodule Backend.VacationTest do
       criteria = %{filter: %{pool: true}}
 
       vacation_places = Vacation.list_places(criteria)
-      vacation_places |> Enum.map(&"#{&1.pool} #{&1.name}") |> IO.inspect()
 
       assert vacation_places |> Enum.map(& &1.name) == ["Place 2"]
     end
